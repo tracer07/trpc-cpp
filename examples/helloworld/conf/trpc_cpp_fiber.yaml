@@ -27,3 +27,10 @@ plugins:
         sinks:
           local_file:
             filename: helloworld_fiber.log
+  selector:
+    test_loadbalance_selector:                        # selector name
+    loadbalance:                                      # loadbalance config
+      load_balance_name: "trpc_polling_load_balance"  # loadbalance algorithm
+      hash_nodes: 20                                  # virtual node for consistenthash
+      hash_args: [0,1]                                # hash part in selectorInfo to calculate
+      hash_func: "murmur3"                            # hash function

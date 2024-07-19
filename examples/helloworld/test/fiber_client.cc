@@ -11,6 +11,7 @@
 //
 //
 
+#include <unistd.h>
 #include <iostream>
 #include <string>
 
@@ -29,14 +30,18 @@ DEFINE_string(service_name, "trpc.test.helloworld.Greeter", "callee service name
 int DoRpcCall(const std::shared_ptr<::trpc::test::helloworld::GreeterServiceProxy>& proxy) {
   ::trpc::ClientContextPtr client_ctx = ::trpc::MakeClientContext(proxy);
   ::trpc::test::helloworld::HelloRequest req;
-  req.set_msg("fiber");
-  ::trpc::test::helloworld::HelloReply rsp;
-  ::trpc::Status status = proxy->SayHello(client_ctx, req, &rsp);
-  if (!status.OK()) {
-    std::cerr << "get rpc error: " << status.ErrorMessage() << std::endl;
-    return -1;
+  int i=0;
+  while(i<10000){
+    req.set_msg("fiber"+std::to_string(i++));
+    ::trpc::test::helloworld::HelloReply rsp;
+    ::trpc::Status status = proxy->SayHello(client_ctx, req, &rsp);
+    if (!status.OK()) {
+      std::cerr << "get rpc error: " << status.ErrorMessage() << std::endl;
+      return -1;
+    }
+    std::cout << "get rsp msg: " << rsp.msg() << std::endl;
+    sleep(5);
   }
-  std::cout << "get rsp msg: " << rsp.msg() << std::endl;
   return 0;
 }
 
