@@ -30,7 +30,7 @@ namespace helloworld {
 
   std::string response = "Hello, " + request->msg();
   reply->set_msg(response);
-  std::cout<<"receive msg:"<<request->msg()<<std::endl;
+  std::cout<<"receive msg:"<<request->msg()<<" from "<<context->GetIp()<<":"<<context->GetPort()<<std::endl;
 
   return ::trpc::kSuccStatus;
 }

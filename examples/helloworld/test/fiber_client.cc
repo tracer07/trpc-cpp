@@ -31,6 +31,7 @@ int DoRpcCall(const std::shared_ptr<::trpc::test::helloworld::GreeterServiceProx
   ::trpc::ClientContextPtr client_ctx = ::trpc::MakeClientContext(proxy);
   ::trpc::test::helloworld::HelloRequest req;
   int i=0;
+  
   while(i<10000){
     req.set_msg("fiber"+std::to_string(i++));
     ::trpc::test::helloworld::HelloReply rsp;
@@ -47,7 +48,6 @@ int DoRpcCall(const std::shared_ptr<::trpc::test::helloworld::GreeterServiceProx
 
 int Run() {
   auto proxy = ::trpc::GetTrpcClient()->GetProxy<::trpc::test::helloworld::GreeterServiceProxy>(FLAGS_service_name);
-
   return DoRpcCall(proxy);
 }
 

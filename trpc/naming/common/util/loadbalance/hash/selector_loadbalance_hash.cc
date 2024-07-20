@@ -64,6 +64,7 @@ int TestSelectorLoadBalance::Select(const SelectorInfo* info, TrpcEndpointInfo* 
   }
 
   *endpoint = std::move(std::any_cast<TrpcEndpointInfo>(load_balance_result.result));
+  std::cout<<"load balance algorithm choose server is "<<endpoint->host<<":"<<endpoint->port<<std::endl;
   return 0;
 }
 
@@ -79,6 +80,8 @@ Future<TrpcEndpointInfo> TestSelectorLoadBalance::AsyncSelect(const SelectorInfo
   }
 
   TrpcEndpointInfo endpoint = std::move(std::any_cast<TrpcEndpointInfo>(load_balance_result.result));
+  std::cout<<"load balance algorithm choose server is "<<endpoint.host<<":"<<endpoint.port<<std::endl;
+
   return MakeReadyFuture<TrpcEndpointInfo>(std::move(endpoint));
 }
 
@@ -147,7 +150,7 @@ int TestSelectorLoadBalance::SetEndpoints(const RouterInfo* info) {
     TRPC_LOG_ERROR("Invalid parameter: router info is empty");
     return -1;
   }
-
+  std::cout<<"yes"<<std::endl;
   // Generate a unique id for each node, then put the node in the cache
   EndpointsInfo endpoints_info;
   endpoints_info.endpoints = info->info;

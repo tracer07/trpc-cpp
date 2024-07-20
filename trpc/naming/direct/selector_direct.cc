@@ -52,6 +52,8 @@ int SelectorDirect::Select(const SelectorInfo* info, TrpcEndpointInfo* endpoint)
   }
 
   *endpoint = std::move(std::any_cast<TrpcEndpointInfo>(load_balance_result.result));
+  std::cout<<"load balance algorithm choose server is "<<endpoint->host<<":"<<endpoint->port<<std::endl;
+  
   return 0;
 }
 
