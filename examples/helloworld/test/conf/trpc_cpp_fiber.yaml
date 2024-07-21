@@ -23,7 +23,7 @@ plugins:
       - name: default
         sinks:
           local_file:
-            filename: trpc_fiber_client.
+            filename: trpc_fiber_client.log
   loadbalance:
     trpc_consistenthash_load_balance:
       hash_nodes: 20
