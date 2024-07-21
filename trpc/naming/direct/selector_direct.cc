@@ -165,6 +165,8 @@ int SelectorDirect::SetEndpoints(const RouterInfo* info) {
   load_balance_info.info = &select_info;
   load_balance_info.endpoints = &endpoints_info.endpoints;
   default_load_balance_->Update(&load_balance_info);
+  GetLoadBalance("trpc_consistenthash_load_balance")->Update(&load_balance_info);
+  GetLoadBalance("trpc_modulohash_load_balance")->Update(&load_balance_info);
   return 0;
 }
 

@@ -16,6 +16,8 @@ cc_library(
         "//trpc/util/log:logging",
         "//trpc/naming/common/util/hash:hash_func",
         "//trpc/common/config:loadbalance_naming_conf",
+        "//trpc/common/config:loadbalance_naming_conf_parser",
+        "//trpc/common/config:trpc_config",
     ],
 )
 
@@ -31,6 +33,8 @@ cc_library(
         "//trpc/util/log:logging",
         "//trpc/naming/common/util/hash:hash_func",
         "//trpc/common/config:loadbalance_naming_conf",
+        "//trpc/common/config:loadbalance_naming_conf_parser",
+        "//trpc/common/config:trpc_config",
     ],
 )
 

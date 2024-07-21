@@ -179,6 +179,5 @@ cc_library(
         "//trpc/naming/domain:selector_domain",
         "//trpc/naming/common/util/loadbalance/hash:consistenthash_load_balance",
         "//trpc/naming/common/util/loadbalance/hash:modulohash_load_balance",
-        "//trpc/naming/common/util/loadbalance/hash:selector_loadbalance_hash",
     ],
 )

@@ -19,7 +19,10 @@
 
 #include "trpc/client/make_client_context.h"
 #include "trpc/client/trpc_client.h"
+#include "trpc/common/plugin.h"
 #include "trpc/common/runtime_manager.h"
+#include "trpc/common/trpc_plugin.h"
+#include "trpc/filter/server_filter_base.h"
 #include "trpc/log/trpc_log.h"
 
 #include "examples/helloworld/helloworld.trpc.pb.h"
@@ -27,28 +30,31 @@
 DEFINE_string(client_config, "trpc_cpp.yaml", "framework client_config file, --client_config=trpc_cpp.yaml");
 DEFINE_string(service_name, "trpc.test.helloworld.Greeter", "callee service name");
 
-int DoRpcCall(const std::shared_ptr<::trpc::test::helloworld::GreeterServiceProxy>& proxy) {
+int DoRpcCall(const std::shared_ptr<::trpc::test::helloworld::GreeterServiceProxy>& proxy,int i) {
   ::trpc::ClientContextPtr client_ctx = ::trpc::MakeClientContext(proxy);
-  ::trpc::test::helloworld::HelloRequest req;
-  int i=0;
-  
-  while(i<10000){
-    req.set_msg("fiber"+std::to_string(i++));
-    ::trpc::test::helloworld::HelloReply rsp;
-    ::trpc::Status status = proxy->SayHello(client_ctx, req, &rsp);
-    if (!status.OK()) {
-      std::cerr << "get rpc error: " << status.ErrorMessage() << std::endl;
-      return -1;
-    }
-    std::cout << "get rsp msg: " << rsp.msg() << std::endl;
-    sleep(5);
+  ::trpc::test::helloworld::HelloRequest req;  
+  req.set_msg("fiber"+std::to_string(i));
+  ::trpc::test::helloworld::HelloReply rsp;
+  ::trpc::Status status = proxy->SayHello(client_ctx, req, &rsp);
+  if (!status.OK()) {
+    std::cerr << "get rpc error: " << status.ErrorMessage() << std::endl;
+    return -1;
   }
+  std::cout << "get rsp msg: " << rsp.msg() << std::endl;
   return 0;
 }
 
 int Run() {
   auto proxy = ::trpc::GetTrpcClient()->GetProxy<::trpc::test::helloworld::GreeterServiceProxy>(FLAGS_service_name);
-  return DoRpcCall(proxy);
+  int i=0;
+  while(i<10000){
+    int res=DoRpcCall(proxy,i++);
+    if(res==-1){
+      return -1;
+    }
+    sleep(5);
+  }
+  return 0;
 }
 
 void ParseClientConfig(int argc, char* argv[]) {

@@ -1,0 +1,8 @@
+[2024-07-21 13:56:23.176] [default] [error] [consistenthash_load_balance.cc:164] Router info of name trpc.test.helloworld.Greeter no found
+[2024-07-21 13:56:23.176] [default] [error] [selector_direct.cc:50] Do load balance of trpc.test.helloworld.Greeter failed
+[2024-07-21 13:56:23.176] [default] [error] [selector_workflow.cc:94] service trpc.test.helloworld.Greeter selector direct failed: -1
+[2024-07-21 13:56:23.176] [default] [error] [service_proxy.cc:663] service name:trpc.test.helloworld.Greeter, filter point:0, execute failed.
+[2024-07-21 13:59:27.788] [default] [error] [consistenthash_load_balance.cc:164] Router info of name trpc.test.helloworld.Greeter no found
+[2024-07-21 13:59:27.788] [default] [error] [selector_direct.cc:50] Do load balance of trpc.test.helloworld.Greeter failed
+[2024-07-21 13:59:27.788] [default] [error] [selector_workflow.cc:94] service trpc.test.helloworld.Greeter selector direct failed: -1
+[2024-07-21 13:59:27.788] [default] [error] [service_proxy.cc:663] service name:trpc.test.helloworld.Greeter, filter point:0, execute failed.

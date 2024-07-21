@@ -11,10 +11,11 @@ global:
 client:
   service:
     - name: trpc.test.helloworld.Greeter
-      target: 127.0.0.1:12345       # Fullfill ip:port list here when use `direct` selector.(such as 23.9.0.1:90,34.5.6.7:90)
+      target: 127.0.0.1:11111,127.0.0.1:22222,127.0.0.1:33333      # Fullfill ip:port list here when use `direct` selector.(such as 23.9.0.1:90,34.5.6.7:90)
       protocol: trpc                # Application layer protocol, eg: trpc/http/...
       network: tcp                  # Network type, Support two types: tcp/udp
       selector_name: direct         # Selector plugin, default `direct`, it is used when you want to access via ip:port
+      load_balance_name: trpc_consistenthash_load_balance
 
 plugins:
   log:
@@ -22,4 +23,13 @@ plugins:
       - name: default
         sinks:
           local_file:
-            filename: trpc_fiber_client.log
+            filename: trpc_fiber_client.
+  loadbalance:
+    trpc_consistenthash_load_balance:
+      hash_nodes: 20
+      hash_args: [0]
+      hash_func: murmur3
+    trpc_modulohash_load_balance:
+      hash_args: [0,1]
+      hash_fun: city
+

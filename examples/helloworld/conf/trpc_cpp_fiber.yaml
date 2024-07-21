@@ -17,8 +17,8 @@ server:
     - name: trpc.test.helloworld.Greeter
       protocol: trpc                  # Application layer protocol, eg: trpc/http/...
       network: tcp                    # Network type, Support two types: tcp/udp
-      ip: 0.0.0.0                     # Service bind ip
-      port: 12345                     # Service bind port
+      ip: 127.0.0.1                     # Service bind ip
+      port: 22222                     # Service bind port
 
 plugins:
   log:
@@ -27,12 +27,3 @@ plugins:
         sinks:
           local_file:
             filename: helloworld_fiber.log
-  selector:
-    domain:
-  # selector:
-    # test_loadbalance_selector:                                # selector name
-    # loadbalance:                                              # loadbalance config
-    #   load_balance_name: "trpc_polling_load_balance"          # loadbalance algorithm
-    #   hash_nodes: 20                                          # virtual node for consistenthash
-    #   hash_args: [0,1]                                        # hash part in selectorInfo to calculate
-    #   hash_func: "murmur3"                                    # hash function
