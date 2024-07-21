@@ -106,7 +106,8 @@ int ModuloHashLoadBalance::Update(const LoadBalanceInfo* info) {
 
     endpoint_info.hash = Hash(GenerateKeysAsString(select_info, loadbalance_config_.hash_args),
                               loadbalance_config_.hash_func, endpoint_info.endpoints.size());
-
+    std::cout<<"*****************modulohash success update****************"<<std::endl;
+    std::cout<<"client hash index is "<<endpoint_info.hash<<std::endl;
     std::unique_lock<std::shared_mutex> lock(mutex_);
     callee_router_infos_[select_info->name] = endpoint_info;
   }

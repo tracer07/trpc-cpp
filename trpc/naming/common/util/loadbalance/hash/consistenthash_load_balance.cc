@@ -143,6 +143,12 @@ int ConsistentHashLoadBalance::Update(const LoadBalanceInfo* info) {
         }
       }
     }
+    std::cout<<"*****************consistenthash success update****************"<<std::endl;
+    std::cout<<"client hash value is "<<endpoint_info.hash<<std::endl;
+    std::cout<<"hashring info is follow"<<std::endl;
+    for(const auto& pair:endpoint_info.hashring){
+      std::cout<<"hash: "<<pair.first<<"  server addresss:"<<pair.second.host+":"+std::to_string(pair.second.port)<<std::endl;
+    }
     std::unique_lock<std::shared_mutex> lock(mutex_);
     callee_router_infos_[select_info->name] = endpoint_info;
   }
