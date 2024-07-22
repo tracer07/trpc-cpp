@@ -27,10 +27,9 @@ namespace helloworld {
   // Your can access more information from rpc context, eg: remote ip and port
   TRPC_FMT_INFO("remote address: {}:{}", context->GetIp(), context->GetPort());
   TRPC_FMT_INFO("request message: {}", request->msg());
-
   std::string response = "Hello, " + request->msg();
   reply->set_msg(response);
-  std::cout<<"receive msg:"<<request->msg()<<" from "<<context->GetIp()<<":"<<context->GetPort()<<std::endl;
+  std::cout<<"receive msg:"<<request->msg()<<std::endl;
 
   return ::trpc::kSuccStatus;
 }

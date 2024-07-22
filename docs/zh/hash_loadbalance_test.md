@@ -70,12 +70,14 @@ plugins:
   loadbalance:
     trpc_consistenthash_load_balance:
       hash_nodes: 20		#consistent hash中每个实际节点对应的虚拟节点数量
-      hash_args: [0]       #支持0-4选项，分别对应selectInfo中的信息.0：info.name 1: info.policy 2: info.select_num 3: info.load_balance_name 4: info.is_from_workflow
+      hash_args: [0]       #支持0-5选项，分别对应selectInfo中的信息.0：info.name 1: client ip+port 2：info.policy 3: info.select_num 4: info.load_balance_name 5: info.is_from_workflow
       hash_func: murmur3  #支持murmur3，city，md5，bkdr，fnv1a
     trpc_modulohash_load_balance:
       hash_args: [0,1]
       hash_fun: city
 ```
+
+注：在实际测试selector_direct有两个问题，原有的selector_direct调用loadbalance插件传入的selectorInfo变量并没有设置ip和port端口；selector_direct的setEndpoints函数update的loadbalance插件是默认的，导致需要手动update配置文件里的loadbalance插件。
 
 5.运行结果
 
