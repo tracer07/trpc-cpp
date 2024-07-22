@@ -16,13 +16,15 @@ bazel build //examples/helloworld/...
 
 3.开启多个终端，运行多个server服务，server收到client信息后，会在终端显示
 
-```
+```shell
 ./bazel-bin/examples/helloworld/helloworld_svr --config=./examples/helloworld/conf/trpc_cpp_fiber.yaml
+./bazel-bin/examples/helloworld/helloworld_svr --config=./examples/helloworld/conf/trpc_cpp_fiber2.yaml
+./bazel-bin/examples/helloworld/helloworld_svr --config=./examples/helloworld/conf/trpc_cpp_fiber3.yaml
 ```
 
 server的配置文件配置文件位置位于./examples/helloworld/conf/trpc_cpp_fiber.yaml
 
-由于在client的yaml文件配置了端口为11111，22222，33333三个地址，所以需要启动三个终端运行server，每个server对应的port分别调整为11111，22222，33333.
+由于在client的yaml文件配置了端口为11111，22222，33333三个地址，所以需要启动三个终端运行server，每个server对应的port对应为11111，22222，33333.
 
 ```yaml
 server:
