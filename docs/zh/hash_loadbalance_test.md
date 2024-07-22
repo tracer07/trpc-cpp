@@ -5,7 +5,7 @@
 ```shell
 git clone git@github.com:tracer07/trpc-cpp.git
 cd trpc-cpp
-git checkout test 
+git checkout test --
 ```
 
 2.编译配置环境
@@ -58,9 +58,7 @@ client:
       protocol: trpc                # Application layer protocol, eg: trpc/http/...
       network: tcp                  # Network type, Support two types: tcp/udp
       selector_name: direct         # Selector plugin, default `direct`, it is used when you want to access via ip:port
-      load_balance_name: trpc_consistenthash_load_balance   #支持trpc_consistenthash_load_balance
-      														#	trpc_modulohash_load_balance
-      														#   trpc_polling_load_balance
+      load_balance_name: trpc_consistenthash_load_balance   #支持trpc_consistenthash_load_balance trpc_modulohash_load_balance trpc_polling_load_balance
 
 plugins:
   log:
