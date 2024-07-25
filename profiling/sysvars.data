@@ -11,18 +11,18 @@
 <p class="nonplot-variable">work_directory: <span id="value-work_directory">/home/xyj/test/trpc-cpp</span></p>
 <br>
 <p class="nonplot-variable">command_line: <span id="value-command_line">./bazel-bin/examples/helloworld/helloworld_svr
---config=./examples/helloworld/conf/trpc_cpp_fiber2.yaml
+--config=./examples/helloworld/conf/trpc_cpp_fiber.yaml
 </span></p>
 <br>
-<p class="nonplot-variable">running_time: <span id="value-running_time">2710(secs)</span></p>
+<p class="nonplot-variable">running_time: <span id="value-running_time">2750(secs)</span></p>
 <br>
-<p class="variable"><font color='#0000FF'><u>proc_loadavg_1m: <span id="value-proc_loadavg_1m">0.610000</span></u></font></p>
+<p class="variable"><font color='#0000FF'><u>proc_loadavg_1m: <span id="value-proc_loadavg_1m">0.640000</span></u></font></p>
 <div class="detail"><div id="proc_loadavg_1m" class="flot-placeholder"></div></div>
 <br>
-<p class="variable"><font color='#0000FF'><u>proc_loadavg_5m: <span id="value-proc_loadavg_5m">0.900000</span></u></font></p>
+<p class="variable"><font color='#0000FF'><u>proc_loadavg_5m: <span id="value-proc_loadavg_5m">0.880000</span></u></font></p>
 <div class="detail"><div id="proc_loadavg_5m" class="flot-placeholder"></div></div>
 <br>
-<p class="variable"><font color='#0000FF'><u>proc_loadavg_15m: <span id="value-proc_loadavg_15m">1.620000</span></u></font></p>
+<p class="variable"><font color='#0000FF'><u>proc_loadavg_15m: <span id="value-proc_loadavg_15m">1.580000</span></u></font></p>
 <div class="detail"><div id="proc_loadavg_15m" class="flot-placeholder"></div></div>
 <br>
 <p class="variable"><font color='#0000FF'><u>proc_real_time: <span id="value-proc_real_time">71(secs)</span></u></font></p>
@@ -34,36 +34,36 @@
 <p class="variable"><font color='#0000FF'><u>proc_user_time: <span id="value-proc_user_time">15(secs)</span></u></font></p>
 <div class="detail"><div id="proc_user_time" class="flot-placeholder"></div></div>
 <br>
-<p class="nonplot-variable">pgrp: <span id="value-pgrp">40586</span></p>
+<p class="nonplot-variable">pgrp: <span id="value-pgrp">40553</span></p>
 <br>
-<p class="nonplot-variable">ppid: <span id="value-ppid">40580</span></p>
+<p class="nonplot-variable">ppid: <span id="value-ppid">2572</span></p>
 <br>
-<p class="nonplot-variable">pid: <span id="value-pid">40586</span></p>
+<p class="nonplot-variable">pid: <span id="value-pid">40553</span></p>
 <br>
-<p class="variable"><font color='#0000FF'><u>proc_faults_major: <span id="value-proc_faults_major">2370</span></u></font></p>
+<p class="variable"><font color='#0000FF'><u>proc_faults_major: <span id="value-proc_faults_major">2229</span></u></font></p>
 <div class="detail"><div id="proc_faults_major" class="flot-placeholder"></div></div>
 <br>
-<p class="variable"><font color='#0000FF'><u>proc_faults_minor_second: <span id="value-proc_faults_minor_second">30226</span></u></font></p>
+<p class="variable"><font color='#0000FF'><u>proc_faults_minor_second: <span id="value-proc_faults_minor_second">27251</span></u></font></p>
 <div class="detail"><div id="proc_faults_minor_second" class="flot-placeholder"></div></div>
 <br>
 <p class="nonplot-variable">fd_count: <span id="value-fd_count">13</span></p>
 <br>
-<p class="variable"><font color='#0000FF'><u>proc_io_read_bytes_second: <span id="value-proc_io_read_bytes_second">212611072</span></u></font></p>
+<p class="variable"><font color='#0000FF'><u>proc_io_read_bytes_second: <span id="value-proc_io_read_bytes_second">207011840</span></u></font></p>
 <div class="detail"><div id="proc_io_read_bytes_second" class="flot-placeholder"></div></div>
 <br>
-<p class="variable"><font color='#0000FF'><u>proc_io_read_second: <span id="value-proc_io_read_second">12545</span></u></font></p>
+<p class="variable"><font color='#0000FF'><u>proc_io_read_second: <span id="value-proc_io_read_second">12712</span></u></font></p>
 <div class="detail"><div id="proc_io_read_second" class="flot-placeholder"></div></div>
 <br>
-<p class="variable"><font color='#0000FF'><u>proc_io_write_bytes_second: <span id="value-proc_io_write_bytes_second">2330624</span></u></font></p>
+<p class="variable"><font color='#0000FF'><u>proc_io_write_bytes_second: <span id="value-proc_io_write_bytes_second">2269184</span></u></font></p>
 <div class="detail"><div id="proc_io_write_bytes_second" class="flot-placeholder"></div></div>
 <br>
-<p class="variable"><font color='#0000FF'><u>proc_io_write_second: <span id="value-proc_io_write_second">825</span></u></font></p>
+<p class="variable"><font color='#0000FF'><u>proc_io_write_second: <span id="value-proc_io_write_second">587</span></u></font></p>
 <div class="detail"><div id="proc_io_write_second" class="flot-placeholder"></div></div>
 <br>
-<p class="variable"><font color='#0000FF'><u>proc_mem_drs: <span id="value-proc_mem_drs">153956</span></u></font></p>
+<p class="variable"><font color='#0000FF'><u>proc_mem_drs: <span id="value-proc_mem_drs">102746</span></u></font></p>
 <div class="detail"><div id="proc_mem_drs" class="flot-placeholder"></div></div>
 <br>
-<p class="variable"><font color='#0000FF'><u>proc_mem_resident: <span id="value-proc_mem_resident">28993</span></u></font></p>
+<p class="variable"><font color='#0000FF'><u>proc_mem_resident: <span id="value-proc_mem_resident">25918</span></u></font></p>
 <div class="detail"><div id="proc_mem_resident" class="flot-placeholder"></div></div>
 <br>
 <p class="variable"><font color='#0000FF'><u>proc_mem_share: <span id="value-proc_mem_share">0</span></u></font></p>
@@ -72,7 +72,7 @@
 <p class="variable"><font color='#0000FF'><u>proc_mem_trs: <span id="value-proc_mem_trs">3104</span></u></font></p>
 <div class="detail"><div id="proc_mem_trs" class="flot-placeholder"></div></div>
 <br>
-<p class="variable"><font color='#0000FF'><u>proc_mem_size: <span id="value-proc_mem_size">419680</span></u></font></p>
+<p class="variable"><font color='#0000FF'><u>proc_mem_size: <span id="value-proc_mem_size">366880</span></u></font></p>
 <div class="detail"><div id="proc_mem_size" class="flot-placeholder"></div></div>
 <br>
 </div>
