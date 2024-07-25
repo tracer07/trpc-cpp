@@ -22,5 +22,34 @@ cc_binary(
         "@trpc_cpp//trpc/client:trpc_client",
         "@trpc_cpp//trpc/common:runtime_manager",
         "@trpc_cpp//trpc/log:trpc_log",
+        "//trpc/naming/common/util/loadbalance:trpc_load_balance",
     ],
 )
+
+cc_binary(
+    name = "fiber_client2",
+    srcs = ["fiber_client2.cc"],
+    deps = [
+        "//examples/helloworld:helloworld_proto",
+        "@com_github_gflags_gflags//:gflags",
+        "@trpc_cpp//trpc/client:make_client_context",
+        "@trpc_cpp//trpc/client:trpc_client",
+        "@trpc_cpp//trpc/common:runtime_manager",
+        "@trpc_cpp//trpc/log:trpc_log",
+        "//trpc/naming/common/util/loadbalance:trpc_load_balance",
+    ],
+)
+cc_binary(
+    name = "fiber_client3",
+    srcs = ["fiber_client3.cc"],
+    deps = [
+        "//examples/helloworld:helloworld_proto",
+        "@com_github_gflags_gflags//:gflags",
+        "@trpc_cpp//trpc/client:make_client_context",
+        "@trpc_cpp//trpc/client:trpc_client",
+        "@trpc_cpp//trpc/common:runtime_manager",
+        "@trpc_cpp//trpc/log:trpc_log",
+        "//trpc/naming/common/util/loadbalance:trpc_load_balance",
+    ],
+)
+

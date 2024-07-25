@@ -17,8 +17,6 @@
 #include "trpc/filter/filter.h"
 #include "trpc/filter/filter_manager.h"
 #include "trpc/naming/common/util/loadbalance/polling/polling_load_balance.h"
-#include "trpc/naming/common/util/loadbalance/hash/consistenthash_load_balance.h"
-#include "trpc/naming/common/util/loadbalance/hash/modulohash_load_balance.h"
 #include "trpc/naming/direct/direct_selector_filter.h"
 #include "trpc/naming/direct/selector_direct.h"
 #include "trpc/naming/domain/domain_selector_filter.h"
@@ -40,19 +38,6 @@ void RegisterInnerSelector() {
     // Register the default load balancer
     polling_load_balance = MakeRefCounted<PollingLoadBalance>();
     LoadBalanceFactory::GetInstance()->Register(polling_load_balance);
-  }
-
-  LoadBalancePtr consistenthash_load_balance = trpc::LoadBalanceFactory::GetInstance()->Get(kConsistentHashLoadBalance);
-  if (consistenthash_load_balance == nullptr) {
-    // Register the default load balancer
-    consistenthash_load_balance = MakeRefCounted<ConsistentHashLoadBalance>();
-    LoadBalanceFactory::GetInstance()->Register(consistenthash_load_balance);
-  }
-  LoadBalancePtr modulohash_load_balance = trpc::LoadBalanceFactory::GetInstance()->Get(kModuloHashLoadBalance);
-  if (modulohash_load_balance == nullptr) {
-    // Register the default load balancer
-    modulohash_load_balance = MakeRefCounted<ModuloHashLoadBalance>();
-    LoadBalanceFactory::GetInstance()->Register(modulohash_load_balance);
   }
 
   SelectorPtr domain_selector = MakeRefCounted<SelectorDomain>(polling_load_balance);

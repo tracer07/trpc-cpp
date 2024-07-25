@@ -26,12 +26,14 @@
 #include "trpc/log/trpc_log.h"
 
 #include "examples/helloworld/helloworld.trpc.pb.h"
+#include "trpc/naming/common/util/loadbalance/trpc_load_balance.h"
 
 DEFINE_string(client_config, "trpc_cpp.yaml", "framework client_config file, --client_config=trpc_cpp.yaml");
 DEFINE_string(service_name, "trpc.test.helloworld.Greeter", "callee service name");
 
 int DoRpcCall(const std::shared_ptr<::trpc::test::helloworld::GreeterServiceProxy>& proxy,int i) {
   ::trpc::ClientContextPtr client_ctx = ::trpc::MakeClientContext(proxy);
+  client_ctx->SetCallerName("trpc.test.helloworld.hello_fiber_client1");
   ::trpc::test::helloworld::HelloRequest req;  
   req.set_msg("fiber"+std::to_string(i));
   ::trpc::test::helloworld::HelloReply rsp;
@@ -78,6 +80,7 @@ void ParseClientConfig(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
   ParseClientConfig(argc, argv);
+  trpc::loadbalance::Init();
 
   // If the business code is running in trpc pure client mode,
   // the business code needs to be running in the `RunInTrpcRuntime` function

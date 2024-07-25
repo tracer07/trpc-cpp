@@ -2,7 +2,7 @@
 //
 // Tencent is pleased to support the open source community by making tRPC available.
 //
-// Copyright (C) 2023 THL A29 Limited, a Tencent company.
+// Copyright (C) 2024 THL A29 Limited, a Tencent company.
 // All rights reserved.
 //
 // If you have downloaded a copy of the tRPC source code from Tencent,
@@ -22,7 +22,7 @@ namespace trpc::naming {
 /// @brief domain select plugin configuration
 struct LoadBalanceSelectorConfig {
   /// @brief hash node number when consistent hash load balance algorithm is hash
-  uint32_t hash_nodes{160};
+  uint32_t hash_nodes{20};
   /// @brief hash content when load balance algorithm is hash,corresponding to SelectInfo
   /// 0 is name,1 is policy, 2 is select_num, 3 is load_balance_name, 4 is is_from_workflow
   std::vector<uint32_t> hash_args{0};
