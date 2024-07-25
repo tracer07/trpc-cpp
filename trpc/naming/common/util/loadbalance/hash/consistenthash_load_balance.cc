@@ -68,9 +68,9 @@ int ConsistentHashLoadBalance::Update(const LoadBalanceInfo* info) {
 
   const SelectorInfo* select_info = info->info;
 
-  InnerEndpointInfos old_info;
 
   if (IsLoadBalanceInfoDiff(info)) {
+    InnerEndpointInfos old_info;
     {
       std::unique_lock<std::shared_mutex> lock(mutex_);
       if (callee_router_infos_.find(select_info->name) != callee_router_infos_.end()) {
@@ -109,6 +109,7 @@ int ConsistentHashLoadBalance::Update(const LoadBalanceInfo* info) {
         }
       }
     }
+    
     std::cout << "*****************consistenthash success update****************" << std::endl;
     std::cout << "hashring info is follow" << std::endl;
     for (const auto& pair : endpoint_info.hashring) {
@@ -142,7 +143,7 @@ int ConsistentHashLoadBalance::Next(LoadBalanceResult& result) {
   }
 
   uint64_t hash = Hash(GenerateKeysAsString(result.info, loadbalance_config_.hash_args), loadbalance_config_.hash_func);
-
+  std::cout<<"consistent hash value is "<<hash<<std::endl;
   auto info_iter = hashring.lower_bound(hash);
 
   if (info_iter == hashring.end()) {

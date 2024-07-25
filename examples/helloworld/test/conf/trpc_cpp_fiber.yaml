@@ -1,4 +1,5 @@
 global:
+  local_ip: 127.0.0.1
   threadmodel:
     fiber:                            # Use Fiber(m:n coroutine) threadmodel
       - instance_name: fiber_instance # Need to be unique if you config mutiple fiber threadmodel instances
@@ -15,7 +16,7 @@ client:
       protocol: trpc                # Application layer protocol, eg: trpc/http/...
       network: tcp                  # Network type, Support two types: tcp/udp
       selector_name: direct         # Selector plugin, default `direct`, it is used when you want to access via ip:port
-      load_balance_name: trpc_modulohash_load_balance
+      load_balance_name: trpc_consistenthash_load_balance
 
 plugins:
   log:

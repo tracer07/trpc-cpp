@@ -40,10 +40,20 @@ server:
       port: 11111                     # Service bind port
 ```
 
-4.启动一个终端用于运行client，client将每隔5s访问server
+4.分别存在三个不同caller name 的client，client将每隔5s访问server
 
 ```shell
 ./bazel-bin/examples/helloworld/test/fiber_client --client_config=./examples/helloworld/test/conf/trpc_cpp_fiber.yaml
+./bazel-bin/examples/helloworld/test/fiber_client2 --client_config=./examples/helloworld/test/conf/trpc_cpp_fiber.yaml
+./bazel-bin/examples/helloworld/test/fiber_client3 --client_config=./examples/helloworld/test/conf/trpc_cpp_fiber.yaml
+```
+
+caller name在fiber_client.cc文件，用代码的形式注入
+
+```
+fiber_client caller name: trpc.test.helloworld.hello_fiber_client1
+fiber_client2 caller name: trpc.test.helloworld.hello_fiber_client2
+fiber_client3 caller name: trpc.test.helloworld.hello_fiber_client3
 ```
 
 client配置文件位于./examples/helloworld/test/conf/trpc_cpp_fiber.yaml
@@ -70,22 +80,23 @@ plugins:
   loadbalance:
     trpc_consistenthash_load_balance:
       hash_nodes: 20		#consistent hash中每个实际节点对应的虚拟节点数量
-      hash_args: [0]       #支持0-5选项，分别对应selectInfo中的信息.0：info.name 1: client ip+port 2：info.policy 3: info.select_num 4: info.load_balance_name 5: info.is_from_workflow
+      hash_args: [0]       #支持0-5选项，分别对应selectInfo中的信息.0：caller name 1: client ip 2：client port 3:info.name  4: callee name 5: info.loadbalance name
       hash_func: murmur3  #支持murmur3，city，md5，bkdr，fnv1a
     trpc_modulohash_load_balance:
       hash_args: [0,1]
       hash_fun: city
 ```
 
-注：在实际测试selector_direct有两个问题，原有的selector_direct调用loadbalance插件传入的selectorInfo变量并没有设置ip和port端口；selector_direct的setEndpoints函数update的loadbalance插件是默认的，导致需要手动update配置文件里的loadbalance插件。
+注：在实际测试selector_direct有个问题，selector_direct的setEndpoints函数update的loadbalance插件是默认的，导致需要手动update配置文件里的loadbalance插件。
 
 5.运行结果
 
-启动client首先会打印出loadbalance插件update的数据结构，consistenthash打印的是hash ring，modulohash打印的是hash后的index。
+启动client首先会打印出loadbalance插件update的数据结构，consistenthash打印的是hash ring。
+
+在consistenthash例子中，fiber_client和fiber client2选择了端口为11111的server，而fiber_client3选择了端口为22222的server
 
 ```
 *****************consistenthash success update****************
-client hash value is 1053723604363427496
 hashring info is follow
 hash: 25704385743575135  server addresss:127.0.0.1:11111
 hash: 70353359594032878  server addresss:127.0.0.1:22222
@@ -96,7 +107,7 @@ hash: 467408919241960758  server addresss:127.0.0.1:33333
 hash: 682977138908057960  server addresss:127.0.0.1:11111
 hash: 738502112444139973  server addresss:127.0.0.1:11111
 hash: 961336164618633208  server addresss:127.0.0.1:11111
-hash: 1294530552652648092  server addresss:127.0.0.1:11111   //consistenthash 从这开始select
+hash: 1294530552652648092  server addresss:127.0.0.1:11111   
 hash: 1339835358552332970  server addresss:127.0.0.1:11111
 hash: 1440975125317012970  server addresss:127.0.0.1:22222
 hash: 1476327086533475255  server addresss:127.0.0.1:33333
@@ -127,7 +138,7 @@ hash: 9126347467390732979  server addresss:127.0.0.1:33333
 hash: 9669690719668306095  server addresss:127.0.0.1:33333
 hash: 9674326317384262916  server addresss:127.0.0.1:11111
 hash: 9692645018200744909  server addresss:127.0.0.1:11111
-hash: 10700091645353863456  server addresss:127.0.0.1:11111
+hash: 10700091645353863456  server addresss:127.0.0.1:11111     //例子中的consistenthash 从这里select
 hash: 10769524175358196299  server addresss:127.0.0.1:33333
 hash: 10856928842092362567  server addresss:127.0.0.1:22222
 hash: 11075366471372968531  server addresss:127.0.0.1:11111
@@ -147,53 +158,34 @@ hash: 15350104580107007972  server addresss:127.0.0.1:11111
 hash: 15504849217779354743  server addresss:127.0.0.1:22222
 hash: 15917846871350826359  server addresss:127.0.0.1:22222
 hash: 17877771477237698923  server addresss:127.0.0.1:11111
-*****************modulohash success update****************
-client hash value is 1
-
-//截取部分路由选择信息，比较上面，符合预期的路由选择顺序（插件为consistenthash）
+      
+//截取部分路由选择信息，比较上面，符合预期的路由选择顺序（插件为consistenthash，client为fiber_client）
+consistent hash value is 10649436583591196300
 load balance algorithm choose server is 127.0.0.1:11111
 get rsp msg: Hello, fiber0
+consistent hash value is 10649436583591196300
 load balance algorithm choose server is 127.0.0.1:11111
 get rsp msg: Hello, fiber1
-load balance algorithm choose server is 127.0.0.1:22222
+consistent hash value is 10649436583591196300
+load balance algorithm choose server is 127.0.0.1:11111
 get rsp msg: Hello, fiber2
-load balance algorithm choose server is 127.0.0.1:33333
+consistent hash value is 10649436583591196300
+load balance algorithm choose server is 127.0.0.1:11111
 get rsp msg: Hello, fiber3
-load balance algorithm choose server is 127.0.0.1:33333
+consistent hash value is 10649436583591196300
+load balance algorithm choose server is 127.0.0.1:11111
 get rsp msg: Hello, fiber4
-load balance algorithm choose server is 127.0.0.1:22222
+consistent hash value is 10649436583591196300
+load balance algorithm choose server is 127.0.0.1:11111
 get rsp msg: Hello, fiber5
-load balance algorithm choose server is 127.0.0.1:22222
+consistent hash value is 10649436583591196300
+load balance algorithm choose server is 127.0.0.1:11111
 get rsp msg: Hello, fiber6
-load balance algorithm choose server is 127.0.0.1:22222
+consistent hash value is 10649436583591196300
+load balance algorithm choose server is 127.0.0.1:11111
 get rsp msg: Hello, fiber7
-load balance algorithm choose server is 127.0.0.1:11111
-get rsp msg: Hello, fiber8
-load balance algorithm choose server is 127.0.0.1:11111
-get rsp msg: Hello, fiber9
-load balance algorithm choose server is 127.0.0.1:33333
-get rsp msg: Hello, fiber10
-load balance algorithm choose server is 127.0.0.1:11111
-get rsp msg: Hello, fiber11
-load balance algorithm choose server is 127.0.0.1:11111
-get rsp msg: Hello, fiber12
-load balance algorithm choose server is 127.0.0.1:22222
-get rsp msg: Hello, fiber13
-load balance algorithm choose server is 127.0.0.1:22222
-get rsp msg: Hello, fiber14
-load balance algorithm choose server is 127.0.0.1:33333
-get rsp msg: Hello, fiber15
-load balance algorithm choose server is 127.0.0.1:33333
-get rsp msg: Hello, fiber16
-load balance algorithm choose server is 127.0.0.1:22222
-get rsp msg: Hello, fiber17
-load balance algorithm choose server is 127.0.0.1:33333
-get rsp msg: Hello, fiber18
-load balance algorithm choose server is 127.0.0.1:22222
-get rsp msg: Hello, fiber19
-load balance algorithm choose server is 127.0.0.1:22222
-get rsp msg: Hello, fiber20
-load balance algorithm choose server is 127.0.0.1:33333
+
+
 
 
 ```

@@ -99,6 +99,7 @@ int ModuloHashLoadBalance::Next(LoadBalanceResult& result) {
 
   uint64_t hash = Hash(GenerateKeysAsString(result.info, loadbalance_config_.hash_args), loadbalance_config_.hash_func,
                        endpoints_num);
+  std::cout<<"modulo hash index is "<<hash<<std::endl;
 
   result.result = endpoints[hash];
 
