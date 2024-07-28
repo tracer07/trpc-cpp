@@ -92,15 +92,6 @@ int ConsistentHashLoadBalance::Update(const LoadBalanceInfo* info) {
     for (const auto& endpoint : old_info.endpoints) {
       old_set.insert(endpoint.host + std::to_string(endpoint.port));
     }
-
-    for (const auto& elem : new_set) {
-      if (old_set.find(elem.first) == old_set.end()) {
-        for (uint32_t i = 0; i < loadbalance_config_.hash_nodes; i++) {
-          uint64_t key = Hash(elem.first + std::to_string(i), loadbalance_config_.hash_func);
-          endpoint_info.hashring[key] = info->endpoints->at(elem.second);
-        }
-      }
-    }
     for (const auto& elem : old_set) {
       if (new_set.find(elem) == new_set.end()) {
         for (uint32_t i = 0; i < loadbalance_config_.hash_nodes; i++) {
@@ -109,6 +100,15 @@ int ConsistentHashLoadBalance::Update(const LoadBalanceInfo* info) {
         }
       }
     }
+    for (const auto& elem : new_set) {
+      if (old_set.find(elem.first) == old_set.end()) {
+        for (uint32_t i = 0; i < loadbalance_config_.hash_nodes; i++) {
+          uint64_t key = Hash(elem.first + std::to_string(i), loadbalance_config_.hash_func);
+          endpoint_info.hashring[key] = info->endpoints->at(elem.second);
+        }
+      }
+    }
+    
     
     std::cout << "*****************consistenthash success update****************" << std::endl;
     std::cout << "hashring info is follow" << std::endl;
