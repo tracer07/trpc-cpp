@@ -141,8 +141,13 @@ int ConsistentHashLoadBalance::Next(LoadBalanceResult& result) {
     TRPC_LOG_ERROR("Router info of name is empty");
     return -1;
   }
-
-  uint64_t hash = Hash(GenerateKeysAsString(result.info, loadbalance_config_.hash_args), loadbalance_config_.hash_func);
+  uint64_t hash;
+  if(result.info->context!=nullptr&&!result.info->context->GetHashKey().empty()){
+    hash=std::stoull(result.info->context->GetHashKey());
+  }
+  else{
+    hash = Hash(GenerateKeysAsString(result.info, loadbalance_config_.hash_args), loadbalance_config_.hash_func);
+  }
   std::cout<<"consistent hash value is "<<hash<<std::endl;
   auto info_iter = hashring.lower_bound(hash);
 
