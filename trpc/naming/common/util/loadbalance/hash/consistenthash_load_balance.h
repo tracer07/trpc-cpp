@@ -26,7 +26,7 @@
 #include "trpc/naming/load_balance.h"
 
 namespace trpc {
-constexpr char kConsistentHashLoadBalance[] = "trpc_consistenthash_load_balance";
+constexpr char kConsistentHashLoadBalance[] = "consistent_hash";
 
 /// @brief consistent hash load balancing plugin
 class ConsistentHashLoadBalance : public LoadBalance {
@@ -63,7 +63,6 @@ class ConsistentHashLoadBalance : public LoadBalance {
 
   mutable std::shared_mutex mutex_;
 
-  // std::unordered_map<std::string,
 };
 
 }  // namespace trpc

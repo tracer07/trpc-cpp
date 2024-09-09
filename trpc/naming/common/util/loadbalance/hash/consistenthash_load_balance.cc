@@ -81,6 +81,8 @@ int ConsistentHashLoadBalance::Update(const LoadBalanceInfo* info) {
 
     endpoint_info.hashring = std::move(old_info.hashring);
     endpoint_info.endpoints.assign(info->endpoints->begin(), info->endpoints->end());
+    endpoint_info.hashring = std::move(old_info.hashring);
+    endpoint_info.endpoints.assign(info->endpoints->begin(), info->endpoints->end());
 
     std::unordered_set<std::string> old_set;
     std::unordered_map<std::string, int> new_set;
@@ -154,6 +156,7 @@ int ConsistentHashLoadBalance::Next(LoadBalanceResult& result) {
   if (info_iter == hashring.end()) {
     info_iter = hashring.begin();
   }
+
 
   result.result = info_iter->second;
 
